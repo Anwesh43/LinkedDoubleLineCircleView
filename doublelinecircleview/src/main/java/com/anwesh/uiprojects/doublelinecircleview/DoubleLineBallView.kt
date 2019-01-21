@@ -21,6 +21,7 @@ val rFactor : Int = 4
 val sizeFactor : Float = 2.8f
 val foreColor : Int = Color.parseColor("#1565C0")
 val backColor : Int = Color.parseColor("#BDBDBD")
+val delay : Long = 30
 
 fun Int.inverse() : Float = 1f / this
 fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse())
@@ -48,7 +49,7 @@ fun Canvas.drawDLBNode(i : Int, scale : Float, paint : Paint) {
         val sf : Float = 1f - 2 * (j % 2)
         val sc : Float = sc2.divideScale(j, circles)
         save()
-        translate((w/2 + r) * sc * sf, (size - r) * sf)
+        translate((w/2 + r) * sc * sf, (size - r + paint.strokeWidth) * sf)
         drawCircle(0f, 0f, r, paint)
         restore()
     }
@@ -99,7 +100,7 @@ class DoubleLineBallView(ctx : Context) : View(ctx) {
             if (animated) {
                 cb()
                 try {
-                    Thread.sleep(50)
+                    Thread.sleep(delay)
                     view.invalidate()
                 } catch(ex : Exception) {
 
