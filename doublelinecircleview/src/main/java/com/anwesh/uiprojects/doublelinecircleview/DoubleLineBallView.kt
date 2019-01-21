@@ -216,7 +216,7 @@ class DoubleLineBallView(ctx : Context) : View(ctx) {
         fun create(activity : Activity) : DoubleLineBallView {
             val view : DoubleLineBallView = DoubleLineBallView(activity)
             activity.setContentView(view)
-            return view 
+            return view
         }
     }
 }
