@@ -187,4 +187,26 @@ class DoubleLineBallView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : DoubleLineBallView) {
+
+        private val dlb : DoubleLineBall = DoubleLineBall(0)
+        private val animator : Animator = Animator(view)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            dlb.draw(canvas, paint)
+            animator.animate {
+                dlb.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            dlb.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
